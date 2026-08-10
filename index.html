@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QUESTLOGS - Video Game Equipment Store & Fast-Food Satire Games</title>
+    <title>QUESTLOGS - Gaming Hardware & Fast-Food Inflation Satire</title>
     <style>
         :root {
             --bg-main: #060411;
@@ -22,33 +22,31 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: var(--bg-main); color: var(--text-white); line-height: 1.6; min-height: 100vh; display: flex; flex-direction: column; }
 
-        /* Header & Navigation */
+        /* Header & Nav */
         .main-header { background: rgba(6, 4, 17, 0.95); border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(8px); }
-        .header-container { max-width: 1280px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; flex-wrap: wrap; gap: 1rem; }
-        .logo { font-size: 1.8rem; font-weight: 900; letter-spacing: 2px; color: #fff; text-decoration: none; }
+        .header-container { max-width: 1280px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; }
+        .logo { font-size: 1.8rem; font-weight: 900; letter-spacing: 2px; color: #fff; text-decoration: none; cursor: pointer; }
         .logo-accent { color: var(--accent-purple); }
-        .main-nav { display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap; }
+        .main-nav { display: flex; align-items: center; gap: 1.2rem; }
         .main-nav a { color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: color 0.2s; cursor: pointer; }
-        .main-nav a:hover, .main-nav a.active-link { color: var(--accent-purple-bright); }
-        .cart-link { background: #1a103c; padding: 6px 14px; border-radius: 20px; border: 1px solid var(--border-color); color: #fff !important; }
+        .main-nav a:hover, .main-nav a.active { color: var(--accent-purple-bright); }
+        .cart-link { background: #1a103c; padding: 6px 12px; border-radius: 20px; border: 1px solid var(--border-color); color: #fff !important; }
         .btn-login-nav { background: var(--accent-purple); color: #fff !important; padding: 6px 16px; border-radius: 20px; text-decoration: none; font-weight: 700; }
         .btn-login-nav:hover { background: var(--accent-purple-bright); }
 
-        /* Router Page Views */
+        /* Layout & Views Routing */
+        .page-wrapper { flex: 1; max-width: 1280px; width: 100%; margin: 0 auto; padding: 2rem; }
         .page-view { display: none; }
         .page-view.active { display: block; }
 
-        /* Layout & Wrapper */
-        .page-wrapper { flex: 1; max-width: 1280px; width: 100%; margin: 0 auto; padding: 2rem; }
-
-        /* Buttons & Utility */
-        .btn-primary { display: inline-block; background: var(--accent-purple); color: #fff; padding: 10px 22px; border-radius: 25px; font-weight: 700; text-decoration: none; border: none; cursor: pointer; transition: transform 0.2s, background 0.2s; text-align: center; }
+        /* Buttons & Utility UI */
+        .btn-primary { display: inline-block; background: var(--accent-purple); color: #fff; padding: 10px 22px; border-radius: 25px; font-weight: 700; text-decoration: none; border: none; cursor: pointer; transition: transform 0.2s, background 0.2s; }
         .btn-primary:hover { background: var(--accent-purple-bright); transform: translateY(-2px); }
-        .btn-secondary { display: inline-block; background: transparent; color: #fff; padding: 10px 22px; border-radius: 25px; font-weight: 700; text-decoration: none; border: 1px solid var(--accent-purple); cursor: pointer; text-align: center; }
+        .btn-secondary { display: inline-block; background: transparent; color: #fff; padding: 10px 22px; border-radius: 25px; font-weight: 700; text-decoration: none; border: 1px solid var(--accent-purple); cursor: pointer; }
         .btn-secondary:hover { background: rgba(129, 65, 255, 0.2); }
 
-        /* Cards & Grid Architecture */
-        .grid-4 { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; }
+        /* Grid & Cards */
+        .grid-4 { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; }
         .card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s, border-color 0.2s; }
         .card:hover { transform: translateY(-4px); border-color: var(--accent-purple); }
         .card-img-wrap { width: 100%; height: 180px; overflow: hidden; position: relative; }
@@ -59,483 +57,412 @@
         .card-price { font-size: 1.25rem; font-weight: 800; color: var(--accent-purple-bright); margin-bottom: 0.8rem; }
         .rating { color: #ffca28; font-size: 0.85rem; margin-bottom: 0.5rem; }
 
-        /* Satire Tycoon Game Styles */
-        .game-dashboard { display: grid; grid-template-columns: 1fr 320px; gap: 1.5rem; margin-top: 1rem; }
+        /* Modal View Detail */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center; padding: 1rem; }
+        .modal-content { background: var(--bg-card); border: 1px solid var(--accent-purple); border-radius: 12px; max-width: 650px; width: 100%; padding: 2rem; position: relative; }
+        .close-modal { position: absolute; top: 1rem; right: 1.5rem; font-size: 1.8rem; color: #fff; cursor: pointer; }
+
+        /* Satire Game Dashboard UI */
+        .game-dashboard { display: grid; grid-template-columns: 1fr 340px; gap: 1.5rem; margin-top: 1rem; }
         @media (max-width: 900px) { .game-dashboard { grid-template-columns: 1fr; } }
         .game-viewport { background: #110c2e; border: 2px solid var(--border-color); border-radius: 12px; padding: 1.5rem; }
         .sector-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
-        @media (max-width: 600px) { .sector-grid { grid-template-columns: 1fr; } }
         .sector-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem; }
         .sector-card h3 { color: var(--accent-purple-bright); font-size: 1rem; margin-bottom: 0.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.4rem; }
-        .stats-hud { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 0.8rem; background: #08051a; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; border: 1px solid var(--border-color); }
+        .stats-hud { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0.8rem; background: #08051a; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; border: 1px solid var(--border-color); }
         .stat-box { text-align: center; }
         .stat-box label { display: block; font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; }
         .stat-box span { font-size: 1.1rem; font-weight: 800; color: #fff; }
-        .feed-container { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 1rem; height: 500px; display: flex; flex-direction: column; }
+        .feed-container { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 1rem; height: 520px; display: flex; flex-direction: column; }
         .feed-list { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem; }
         .feed-item { background: #08051a; padding: 0.6rem; border-radius: 4px; font-size: 0.8rem; border-left: 3px solid var(--accent-purple); }
         .feed-item.warning { border-left-color: var(--warning); color: #ffe082; }
         .feed-item.danger { border-left-color: var(--danger); color: #ff80ab; }
         .feed-item.success { border-left-color: var(--success); color: #b9f6ca; }
 
-        /* Arcade Game Styles */
-        #canvas-wrap { position: relative; width: 100%; max-width: 800px; margin: 0 auto; background: #000; border: 2px solid var(--accent-purple); border-radius: 12px; overflow: hidden; }
-        canvas { display: block; width: 100%; height: 420px; background: #08051a; }
-        .arcade-hud { position: absolute; top: 10px; left: 10px; right: 10px; display: flex; justify-content: space-between; color: #fff; font-weight: bold; font-size: 1.1rem; pointer-events: none; z-index: 10; }
-        .game-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: flex; flex-direction: column; justify-content: center; align-items: center; color: #fff; z-index: 20; }
+        /* Arcade Minigame Canvas */
+        #canvas-wrap { position: relative; width: 100%; max-width: 800px; margin: 0 auto; background: #000; border: 2px solid var(--accent-purple); border-radius: 12px; overflow: hidden; box-shadow: 0 0 20px rgba(129,65,255,0.3); }
+        canvas { display: block; width: 100%; height: 450px; background: #08051a; }
+        .arcade-hud { position: absolute; top: 10px; left: 10px; right: 10px; display: flex; justify-content: space-between; color: #fff; font-weight: bold; font-size: 1.1rem; pointer-events: none; text-shadow: 0 0 5px #000; }
+        .game-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: flex; flex-direction: column; justify-content: center; align-items: center; color: #fff; }
 
-        /* Shopping Cart & Forms */
+        /* Cart & Auth Elements */
         .cart-table { width: 100%; border-collapse: collapse; margin-bottom: 2rem; }
-        .cart-table th, .cart-table td { padding: 0.8rem; border-bottom: 1px solid var(--border-color); text-align: left; }
-        .cart-table th { color: var(--text-muted); font-size: 0.85rem; }
-        .qty-btn { background: var(--border-color); color: #fff; border: none; padding: 2px 8px; border-radius: 4px; cursor: pointer; font-weight: bold; }
-        .auth-container { max-width: 450px; margin: 1rem auto; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 2rem; }
+        .cart-table th, .cart-table td { padding: 1rem; border-bottom: 1px solid var(--border-color); text-align: left; }
+        .cart-table th { color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; }
+        .cart-item-img { width: 50px; height: 50px; object-fit: cover; border-radius: 6px; }
+        .qty-btn { background: var(--border-color); color: #fff; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        .cart-summary { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem; max-width: 400px; margin-left: auto; }
+
+        .auth-container { max-width: 450px; margin: 2rem auto; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .auth-tabs { display: flex; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-color); }
+        .auth-tab { flex: 1; text-align: center; padding: 0.8rem; font-weight: bold; cursor: pointer; color: var(--text-muted); }
+        .auth-tab.active { color: var(--accent-purple-bright); border-bottom: 2px solid var(--accent-purple-bright); }
         .form-group { margin-bottom: 1.2rem; }
         .form-group label { display: block; margin-bottom: 0.4rem; font-size: 0.85rem; color: var(--text-muted); }
         .form-group input, .form-group textarea { width: 100%; padding: 10px; background: #08051a; border: 1px solid var(--border-color); border-radius: 6px; color: #fff; font-size: 0.95rem; }
 
-        /* Modal Styles */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center; padding: 1rem; }
-        .modal-content { background: var(--bg-card); border: 1px solid var(--accent-purple); border-radius: 12px; max-width: 600px; width: 100%; padding: 2rem; position: relative; }
-        .close-modal { position: absolute; top: 1rem; right: 1.5rem; font-size: 1.8rem; color: #fff; cursor: pointer; }
-
         /* Footer */
         .main-footer { background: #04020a; border-top: 1px solid var(--border-color); padding: 3rem 2rem 1rem 2rem; margin-top: auto; }
-        .footer-container { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
+        .footer-container { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
         .footer-col h3, .footer-col h4 { color: #fff; margin-bottom: 1rem; }
-        .footer-col p, .footer-col ul li a { color: var(--text-muted); font-size: 0.85rem; text-decoration: none; margin-bottom: 0.5rem; display: block; }
+        .footer-col p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.5rem; }
         .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 0.5rem; }
+        .footer-col ul li a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; cursor: pointer; }
         .footer-col ul li a:hover { color: var(--accent-purple-bright); }
         .footer-bottom { max-width: 1280px; margin: 0 auto; text-align: center; padding-top: 1.5rem; border-top: 1px solid #140d30; color: var(--text-muted); font-size: 0.85rem; }
     </style>
 </head>
 <body>
 
-    <!-- GLOBAL HEADER & NAVIGATION MENU -->
+    <!-- SITE HEADER -->
     <header class="main-header">
         <div class="header-container">
-            <a href="#home" class="logo"><span class="logo-accent">QUEST</span>LOGS</a>
+            <a onclick="navigateTo('home')" class="logo"><span class="logo-accent">QUEST</span>LOGS</a>
             <nav class="main-nav">
-                <a href="#home" id="nav-home">Home</a>
-                <a href="#shop" id="nav-shop">Equipment Shop (20+)</a>
-                <a href="#tycoon" id="nav-tycoon" style="color: var(--warning);">Fast-Food Satire Game</a>
-                <a href="#arcade" id="nav-arcade">Arcade Minigame</a>
-                <a href="#blog" id="nav-blog">News & Blog</a>
-                <a href="#about" id="nav-about">About Us</a>
-                <a href="#contact" id="nav-contact">Contact</a>
-                <a href="#cart" id="nav-cart" class="cart-link">🛒 Cart (<span class="cart-badge">0</span>)</a>
-                <a href="#account" id="nav-account" class="btn-login-nav">Account</a>
+                <a id="nav-home" onclick="navigateTo('home')" class="active">Home</a>
+                <a id="nav-shop" onclick="navigateTo('shop')">Equipment Shop</a>
+                <a id="nav-satire" onclick="navigateTo('satire')">Fast-Food Satire Game</a>
+                <a id="nav-arcade" onclick="navigateTo('arcade')">Arcade Minigame</a>
+                <a id="nav-blog" onclick="navigateTo('blog')">News & Blog</a>
+                <a id="nav-about" onclick="navigateTo('about')">About Us</a>
+                <a id="nav-contact" onclick="navigateTo('contact')">Contact</a>
+                <a id="nav-cart" onclick="navigateTo('cart')" class="cart-link">🛒 Cart (<span class="cart-badge">0</span>)</a>
+                <a id="nav-login" onclick="navigateTo('login')" class="btn-login-nav">Account</a>
             </nav>
         </div>
     </header>
 
-    <!-- MAIN PAGE CONTAINER (SINGLE-PAGE APPLICATION ROUTER) -->
-    <div id="app-viewport">
+    <!-- PAGE VIEWS WRAPPER -->
+    <div class="page-wrapper">
 
         <!-- 1. HOMEPAGE VIEW -->
-        <section id="view-home" class="page-view">
-            <div style="background: radial-gradient(circle at 70% 30%, rgba(129, 65, 255, 0.25), transparent 60%); padding: 4rem 2rem; border-bottom: 1px solid var(--border-color);">
-                <div style="max-width: 1280px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 2rem;">
+        <section id="view-home" class="page-view active">
+            <div style="background: radial-gradient(circle at 70% 30%, rgba(129, 65, 255, 0.25), transparent 60%); padding: 3rem 0; border-bottom: 1px solid var(--border-color); margin-bottom: 2rem;">
+                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 2rem;">
                     <div style="max-width: 600px;">
-                        <span style="background: rgba(129, 65, 255, 0.2); border: 1px solid var(--accent-purple); color: var(--accent-purple-bright); padding: 4px 12px; border-radius: 12px; font-size: 0.85rem; font-weight: 700;">PRO ESPORTS & INTERACTIVE SATIRE</span>
-                        <h1 style="font-size: 3rem; font-weight: 900; line-height: 1.1; margin: 1rem 0;">YOUR ONE-STOP VIDEO GAME CENTRE</h1>
-                        <p style="color: var(--text-muted); font-size: 1.05rem; margin-bottom: 2rem;">Purchase high-performance mechanical keyboards, 240Hz monitors, and ultra-lightweight wireless mice, or dive into original satire games targeting fast-food inflation at major chains[cite: 1].</p>
+                        <span style="background: rgba(129, 65, 255, 0.2); border: 1px solid var(--accent-purple); color: var(--accent-purple-bright); padding: 4px 12px; border-radius: 12px; font-size: 0.85rem; font-weight: 700;">FEATURED PLATFORM RELEASE</span>
+                        <h1 style="font-size: 3rem; font-weight: 900; line-height: 1.1; margin: 1rem 0;">YOUR ULTIMATE VIDEO GAME CENTRE</h1>
+                        <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2rem;">Buy pro esports mechanical keyboards, 4K OLED displays, and wireless headsets—or play our original video game simulations satirizing corporate fast-food price hikes across chains like Burger King, Starbucks, and Dunkin'.</p>
                         <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                            <a href="#shop" class="btn-primary">Browse Shop (20+ Items)</a>
-                            <a href="#tycoon" class="btn-secondary">Play Fast-Food Satire &rarr;</a>
+                            <button onclick="navigateTo('shop')" class="btn-primary">Shop Gaming Equipment</button>
+                            <button onclick="navigateTo('satire')" class="btn-secondary">Play Fast-Food Satire &rarr;</button>
                         </div>
                     </div>
                     <div style="flex: 1; min-width: 300px; text-align: center;">
-                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=700&q=80" alt="Esports Gaming Rig Setup" style="width: 100%; max-width: 500px; border-radius: 16px; border: 2px solid var(--border-color);">
+                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=700&q=80" alt="Gaming Rig Setup" style="width: 100%; max-width: 480px; border-radius: 16px; border: 2px solid var(--border-color);">
                     </div>
                 </div>
             </div>
 
-            <main class="page-wrapper">
-                <div style="text-align: center; margin-bottom: 2.5rem;">
-                    <h2 style="font-size: 2rem; font-weight: 800;">EXPLORE THE NETWORK</h2>
-                    <p style="color: var(--text-muted);">E-commerce hardware combined with corporate strategy simulations</p>
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <h2 style="font-size: 2rem; font-weight: 800;">EXPLORE PLATFORM CATEGORIES</h2>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+                <div style="background: var(--bg-card); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-color); text-align: center;">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=400&q=80" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;" alt="Pro Gear">
+                    <h3>Pro Esports Gear</h3>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0.5rem 0 1rem 0;">Top tier mechanical switches, optical mice, and liquid-cooled rigs.</p>
+                    <button onclick="navigateTo('shop')" class="btn-primary">Browse Shop</button>
                 </div>
+                <div style="background: var(--bg-card); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-color); text-align: center;">
+                    <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=400&q=80" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;" alt="Satire Tycoon">
+                    <h3>McFast® Inflation Tycoon</h3>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0.5rem 0 1rem 0;">A 4-sector strategy sim mocking fast-food price spikes, labor cuts, and PR spin.</p>
+                    <button onclick="navigateTo('satire')" class="btn-primary">Play Tycoon Game</button>
+                </div>
+                <div style="background: var(--bg-card); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-color); text-align: center;">
+                    <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=400&q=80" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;" alt="Arcade Shooter">
+                    <h3>Inflation Defender Arcade</h3>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0.5rem 0 1rem 0;">Shoot down rising $25 Burger and $12 Latte price tags before they ruin your budget!</p>
+                    <button onclick="navigateTo('arcade')" class="btn-primary">Play Arcade Game</button>
+                </div>
+            </div>
 
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 4rem;">
-                    <div style="background: var(--bg-card); padding: 1.8rem; border-radius: 12px; border: 1px solid var(--border-color); text-align: center;">
-                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=400&q=80" style="width: 100%; height: 160px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;" alt="Gaming Hardware">
-                        <h3>Esports Gear Store</h3>
-                        <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0.5rem 0 1rem 0;">Browse 20+ esports gear items with full details and instant cart checkout[cite: 1].</p>
-                        <a href="#shop" class="btn-primary">Shop Hardware</a>
-                    </div>
-                    <div style="background: var(--bg-card); padding: 1.8rem; border-radius: 12px; border: 1px solid var(--border-color); text-align: center;">
-                        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=400&q=80" style="width: 100%; height: 160px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;" alt="Satire Tycoon">
-                        <h3>McFast® Inflation Tycoon</h3>
-                        <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0.5rem 0 1rem 0;">A 4-sector strategy sim mocking fast-food price hikes at Burger King, Starbucks, and Dunkin'[cite: 1].</p>
-                        <a href="#tycoon" class="btn-primary">Play Tycoon Game</a>
-                    </div>
-                    <div style="background: var(--bg-card); padding: 1.8rem; border-radius: 12px; border: 1px solid var(--border-color); text-align: center;">
-                        <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=400&q=80" style="width: 100%; height: 160px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;" alt="Arcade Shooter">
-                        <h3>Inflation Defender Arcade</h3>
-                        <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0.5rem 0 1rem 0;">Shoot down overpriced food tags before they drain your gaming hardware budget!</p>
-                        <a href="#arcade" class="btn-primary">Play Arcade Game</a>
-                    </div>
-                </div>
-
-                <div style="margin-bottom: 3rem;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                        <h2 style="font-size: 1.8rem; font-weight: 800;">FEATURED GAMING HARDWARE</h2>
-                        <a href="#shop" style="color: var(--accent-purple-bright); text-decoration: none; font-weight: 700;">View All 20+ Items &rarr;</a>
-                    </div>
-                    <div id="home-featured-grid" class="grid-4"></div>
-                </div>
-            </main>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h2 style="font-size: 1.8rem; font-weight: 800;">FEATURED GAMING EQUIPMENT</h2>
+                <a onclick="navigateTo('shop')" style="color: var(--accent-purple-bright); font-weight: 700; cursor: pointer;">View Store Catalog &rarr;</a>
+            </div>
+            <div id="home-products-grid" class="grid-4"></div>
         </section>
 
-        <!-- 2. SHOPPING / EQUIPMENT STORE PAGE VIEW -->
+        <!-- 2. EQUIPMENT SHOP VIEW -->
         <section id="view-shop" class="page-view">
-            <main class="page-wrapper">
-                <div style="margin-bottom: 2rem;">
-                    <h1 style="font-size: 2.2rem; font-weight: 900;">PRO GAMING HARDWARE STORE</h1>
-                    <p style="color: var(--text-muted);">Browse all 20 high-performance gaming peripherals, controllers, and custom liquid-cooled PC rigs[cite: 1].</p>
-                </div>
-
-                <div style="display: flex; gap: 0.8rem; margin-bottom: 2rem; flex-wrap: wrap; background: var(--bg-card); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-color);">
-                    <button onclick="filterShop('All')" class="btn-secondary" style="padding: 6px 14px; font-size: 0.85rem;">All Products</button>
-                    <button onclick="filterShop('Keyboards')" class="btn-secondary" style="padding: 6px 14px; font-size: 0.85rem;">Keyboards</button>
-                    <button onclick="filterShop('Mice')" class="btn-secondary" style="padding: 6px 14px; font-size: 0.85rem;">Mice</button>
-                    <button onclick="filterShop('Monitors')" class="btn-secondary" style="padding: 6px 14px; font-size: 0.85rem;">Monitors</button>
-                    <button onclick="filterShop('Audio')" class="btn-secondary" style="padding: 6px 14px; font-size: 0.85rem;">Audio</button>
-                    <button onclick="filterShop('Streaming')" class="btn-secondary" style="padding: 6px 14px; font-size: 0.85rem;">Streaming</button>
-                    <button onclick="filterShop('Controllers')" class="btn-secondary" style="padding: 6px 14px; font-size: 0.85rem;">Controllers</button>
-                </div>
-
-                <div id="shop-grid" class="grid-4"></div>
-            </main>
+            <div style="margin-bottom: 2rem;">
+                <h1 style="font-size: 2.2rem; font-weight: 900;">PRO GAMING HARDWARE STORE</h1>
+                <p style="color: var(--text-muted);">High-performance gaming peripherals, accessories, controllers, and custom liquid-cooled PC rigs.</p>
+            </div>
+            <div style="display: flex; gap: 0.8rem; margin-bottom: 2rem; flex-wrap: wrap; background: var(--bg-card); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-color);">
+                <button onclick="filterShop('All')" class="btn-secondary" style="padding: 6px 14px; font-size: 0.85rem;">All Items</button>
+                <button onclick="filterShop('Keyboards')" class="btn-secondary" style="padding: 6px 14px; font-size: 0.85rem;">Keyboards</button>
+                <button onclick="filterShop('Mice')" class="btn-secondary" style="padding: 6px 14px; font-size: 0.85rem;">Mice</button>
+                <button onclick="filterShop('Monitors')" class="btn-secondary" style="padding: 6px 14px; font-size: 0.85rem;">Monitors</button>
+                <button onclick="filterShop('Audio')" class="btn-secondary" style="padding: 6px 14px; font-size: 0.85rem;">Audio</button>
+                <button onclick="filterShop('Streaming')" class="btn-secondary" style="padding: 6px 14px; font-size: 0.85rem;">Streaming</button>
+            </div>
+            <div id="shop-products-grid" class="grid-4"></div>
         </section>
 
-        <!-- 3. FAST-FOOD SATIRE STRATEGY GAME PAGE VIEW (MCDONALD'S GAME STYLE) -->
-        <section id="view-tycoon" class="page-view">
-            <main class="page-wrapper">
-                <div style="margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem;">
-                    <div>
-                        <span style="background: rgba(255, 51, 102, 0.2); border: 1px solid var(--danger); color: #ff80ab; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">CORPORATE SATIRE SIMULATOR</span>
-                        <h1 style="font-size: 2.2rem; font-weight: 900; margin-top: 4px;">McFAST® INFLATION TYCOON</h1>
-                        <p style="color: var(--text-muted); font-size: 0.95rem;">Inspired by Molleindustria's classic game logic. Balance cattle grazing, patty processing, price hikes, and public relations[cite: 1]!</p>
+        <!-- 3. FAST FOOD SATIRE SIMULATION GAME VIEW -->
+        <section id="view-satire" class="page-view">
+            <div style="margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem;">
+                <div>
+                    <span style="background: rgba(255, 51, 102, 0.2); border: 1px solid var(--danger); color: #ff80ab; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">SATIRICAL SIMULATION GAME</span>
+                    <h1 style="font-size: 2.2rem; font-weight: 900; margin-top: 4px;">McFAST-FOOD INFLATION TYCOON</h1>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">Manage all 4 corporate sectors: Rainforest Agriculture, Cattle Feedlots, Retail Franchises, and PR/Lobbying.</p>
+                </div>
+                <div>
+                    <button id="pause-btn" onclick="toggleSatirePause()" class="btn-secondary" style="padding: 8px 18px;">PAUSE SIMULATION</button>
+                </div>
+            </div>
+
+            <div class="stats-hud">
+                <div class="stat-box"><label>Fiscal Date</label><span id="game-date">Jan 2026</span></div>
+                <div class="stat-box"><label>Corporate Funds</label><span id="game-money" style="color: var(--success);">$50,000.00</span></div>
+                <div class="stat-box"><label>Burger Price</label><span id="game-price">$18.99</span></div>
+                <div class="stat-box"><label>Crew Wages</label><span id="game-wages">$12.00/hr</span></div>
+                <div class="stat-box"><label>Public Approval</label><span id="game-approval">45%</span></div>
+                <div class="stat-box"><label>Scandal Index</label><span id="game-scandal" style="color: var(--danger);">20%</span></div>
+            </div>
+
+            <div class="game-dashboard">
+                <div class="game-viewport">
+                    <div class="sector-grid">
+                        <div class="sector-card">
+                            <h3>1. Agriculture & Livestock</h3>
+                            <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom: 0.8rem;">Deforest ecosystems for cattle grazing & GMO soy fillers.</p>
+                            <p style="font-size:0.85rem; margin-bottom: 0.3rem;">Cattle Heads: <strong><span id="game-cows">12</span></strong></p>
+                            <p style="font-size:0.85rem; margin-bottom: 0.8rem;">Soy Fields: <strong><span id="game-soy">4</span></strong></p>
+                            <button onclick="buyCows()" class="btn-primary" style="padding:6px 10px; font-size:0.75rem;">Buy Cattle ($500)</button>
+                            <button onclick="plantSoy()" class="btn-secondary" style="padding:6px 10px; font-size:0.75rem;">Plant Soy ($300)</button>
+                        </div>
+                        <div class="sector-card">
+                            <h3>2. Patty Processing Facility</h3>
+                            <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom: 0.8rem;">Combine meat & preservatives for distribution.</p>
+                            <p style="font-size:0.85rem; margin-bottom: 0.3rem;">Patty Stock: <strong><span id="game-patties">500</span> units</strong></p>
+                            <p style="font-size:0.85rem; margin-bottom: 0.8rem;">Monthly Output: ~380 units</p>
+                            <button onclick="bribeInspector()" class="btn-primary" style="padding:6px 10px; font-size:0.75rem; background:#d32f2f;">Bribe Health Inspector ($2,500)</button>
+                        </div>
+                        <div class="sector-card">
+                            <h3>3. Retail Store Franchises</h3>
+                            <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom: 0.8rem;">Set burger pricing and manage store labor costs.</p>
+                            <div style="margin-bottom: 0.5rem;">
+                                <button onclick="adjustPrice(1.00)" class="btn-secondary" style="padding:4px 8px; font-size:0.75rem;">+$1 Price Hike</button>
+                                <button onclick="adjustPrice(-1.00)" class="btn-secondary" style="padding:4px 8px; font-size:0.75rem;">-$1 Price Cut</button>
+                            </div>
+                            <div>
+                                <button onclick="adjustWages(-1.00)" class="btn-secondary" style="padding:4px 8px; font-size:0.75rem; color:var(--danger);">Cut Wages (-$1)</button>
+                                <button onclick="adjustWages(1.00)" class="btn-secondary" style="padding:4px 8px; font-size:0.75rem; color:var(--success);">Raise Wages (+$1)</button>
+                            </div>
+                        </div>
+                        <div class="sector-card">
+                            <h3>4. PR & Government Lobbying</h3>
+                            <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom: 0.8rem;">Spin corporate narratives across Starbucks, BK, and Dunkin markets.</p>
+                            <button onclick="lobbyPR()" class="btn-primary" style="width:100%; padding:8px; font-size:0.8rem;">Launch PR Campaign ($4,000)</button>
+                        </div>
                     </div>
-                    <div>
-                        <button id="pause-btn" onclick="togglePause()" class="btn-secondary" style="padding: 8px 18px;">PAUSE SIMULATION</button>
+                    <div style="background: rgba(0,0,0,0.4); padding: 0.8rem; border-radius: 8px; border: 1px solid var(--border-color);">
+                        <p style="font-size:0.8rem; color:var(--text-muted);"><strong>Satirical Mechanics:</strong> Price hikes raise revenue per store but lower public tolerance. PR campaigns neutralize scandals from E. coli outbreaks or rainforest deforestation.</p>
                     </div>
                 </div>
 
-                <!-- HUD BAR -->
-                <div class="stats-hud">
-                    <div class="stat-box"><label>Current Date</label><span id="game-date">Jan 2026</span></div>
-                    <div class="stat-box"><label>Capital</label><span id="game-money" style="color: var(--success);">$50,000</span></div>
-                    <div class="stat-box"><label>Burger Price</label><span id="game-price">$18.99</span></div>
-                    <div class="stat-box"><label>Crew Wages</label><span id="game-wages">$12.00/hr</span></div>
-                    <div class="stat-box"><label>Public Approval</label><span id="game-approval">45%</span></div>
-                    <div class="stat-box"><label>Scandal Index</label><span id="game-scandal" style="color: var(--danger);">20%</span></div>
-                </div>
-
-                <div class="game-dashboard">
-                    <div class="game-viewport">
-                        <div class="sector-grid">
-                            <!-- Sector 1 -->
-                            <div class="sector-card">
-                                <h3>1. Agricultural Sector</h3>
-                                <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0.6rem;">Deforest ecosystems for hormone cattle and GMO soy fillers.</p>
-                                <p style="font-size:0.85rem; margin-bottom:0.2rem;">Cattle Heads: <strong><span id="game-cows">12</span></strong></p>
-                                <p style="font-size:0.85rem; margin-bottom:0.8rem;">GMO Soy Fields: <strong><span id="game-soy">4</span></strong></p>
-                                <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
-                                    <button onclick="buyCows()" class="btn-primary" style="padding:5px 10px; font-size:0.75rem;">Buy Cattle ($500)</button>
-                                    <button onclick="plantSoy()" class="btn-secondary" style="padding:5px 10px; font-size:0.75rem;">Plant Soy ($300)</button>
-                                </div>
-                            </div>
-                            <!-- Sector 2 -->
-                            <div class="sector-card">
-                                <h3>2. Processing Plant</h3>
-                                <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0.6rem;">Combine synthetic preservatives for franchise outlets.</p>
-                                <p style="font-size:0.85rem; margin-bottom:0.8rem;">Patty Reserve: <strong><span id="game-patties">500</span> units</strong></p>
-                                <button onclick="bribeInspector()" class="btn-primary" style="padding:6px 12px; font-size:0.75rem; background:#d32f2f;">Bribe Health Inspector ($2,500)</button>
-                            </div>
-                            <!-- Sector 3 -->
-                            <div class="sector-card">
-                                <h3>3. Fast-Food Outlets</h3>
-                                <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0.6rem;">Execute greedflation pricing strategies & wage cuts[cite: 1].</p>
-                                <div style="margin-bottom: 0.5rem;">
-                                    <p style="font-size:0.75rem;">Burger Price:</p>
-                                    <button onclick="adjustPrice(1.00)" class="btn-secondary" style="padding:3px 6px; font-size:0.75rem;">+$1.00 Hike</button>
-                                    <button onclick="adjustPrice(-1.00)" class="btn-secondary" style="padding:3px 6px; font-size:0.75rem;">-$1.00 Cut</button>
-                                </div>
-                                <div>
-                                    <p style="font-size:0.75rem;">Crew Wages:</p>
-                                    <button onclick="adjustWages(-1.00)" class="btn-secondary" style="padding:3px 6px; font-size:0.75rem; color:var(--danger); font-weight:bold;">-$1.00 Wage Cut</button>
-                                    <button onclick="adjustWages(1.00)" class="btn-secondary" style="padding:3px 6px; font-size:0.75rem; color:var(--success);">+$1.00 Raise</button>
-                                </div>
-                            </div>
-                            <!-- Sector 4 -->
-                            <div class="sector-card">
-                                <h3>4. PR & Lobbying</h3>
-                                <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0.6rem;">Spin media narratives blaming inflation on supply chain issues[cite: 1].</p>
-                                <button onclick="lobbyPR()" class="btn-primary" style="width:100%; padding:6px; font-size:0.8rem;">Launch PR Blitz ($4,000)</button>
-                            </div>
-                        </div>
-
-                        <div style="background: rgba(0,0,0,0.4); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-color);">
-                            <h4 style="font-size:0.85rem; margin-bottom:0.3rem; color: var(--warning);">Satirical Target: Burger King, Dunkin', Starbucks & McDonald's[cite: 1]</h4>
-                            <p style="font-size:0.8rem; color:var(--text-muted);">Notice how price hikes boost immediate profits per sale but trigger consumer backlash unless suppressed by paid lobbying and misleading nutrition ads[cite: 1].</p>
-                        </div>
-                    </div>
-
-                    <div class="feed-container">
-                        <h3 style="font-size: 1rem;">Corporate Ticker & News Wire</h3>
-                        <div id="game-feed" class="feed-list">
-                            <div class="feed-item">Simulation booted. Objective: Expand profits despite widespread anger over $18 meal combos[cite: 1].</div>
-                        </div>
+                <div class="feed-container">
+                    <h3 style="font-size: 1rem;">Corporate Ticker & News Feed</h3>
+                    <div id="game-feed" class="feed-list">
+                        <div class="feed-item">Simulation initialized. Objective: Maximize corporate profits despite consumer price frustration.</div>
                     </div>
                 </div>
-            </main>
+            </div>
         </section>
 
-        <!-- 4. ARCADE MINIGAME PAGE VIEW -->
+        <!-- 4. ACTION ARCADE MINIGAME VIEW -->
         <section id="view-arcade" class="page-view">
-            <main class="page-wrapper">
-                <div style="text-align: center; margin-bottom: 1.5rem;">
-                    <span style="background: rgba(129,65,255,0.2); color: var(--accent-purple-bright); padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">ACTION ARCADE MINIGAME</span>
-                    <h1 style="font-size: 2.2rem; font-weight: 900; margin-top: 4px;">INFLATION DEFENDER ARCADE</h1>
-                    <p style="color: var(--text-muted);">Aim mouse and click to blast overpriced fast-food tags before they destroy your gaming budget!</p>
+            <div style="text-align: center; margin-bottom: 1.5rem;">
+                <span style="background: rgba(129,65,255,0.2); color: var(--accent-purple-bright); padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">ACTION ARCADE MINIGAME</span>
+                <h1 style="font-size: 2.2rem; font-weight: 900; margin-top: 4px;">INFLATION DEFENDER ARCADE</h1>
+                <p style="color: var(--text-muted);">Aim with your mouse and click to shoot lasers at falling overpriced fast-food tags ($25 Burger, $14 Latte, $9 Donut) before they destroy your gaming budget!</p>
+            </div>
+            <div id="canvas-wrap">
+                <div class="arcade-hud">
+                    <div>SCORE: <span id="arcade-score" style="color: var(--accent-purple-bright);">0</span></div>
+                    <div>LIVES: <span id="arcade-lives" style="color: var(--danger);">❤️❤️❤️</span></div>
                 </div>
-
-                <div id="canvas-wrap">
-                    <div class="arcade-hud">
-                        <div>SCORE: <span id="arcade-score" style="color: var(--accent-purple-bright);">0</span></div>
-                        <div>BUDGET LIVES: <span id="arcade-lives" style="color: var(--danger);">❤️❤️❤️</span></div>
-                    </div>
-                    <canvas id="arcadeCanvas" width="800" height="420"></canvas>
-                    
-                    <div id="arcade-overlay" class="game-overlay">
-                        <h2 id="arcade-title-text" style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--accent-purple-bright);">INFLATION DEFENDER</h2>
-                        <p style="margin-bottom: 2rem; color: var(--text-muted); text-align: center; max-width: 400px;">Move mouse left/right to aim laser. Click left mouse button to shoot falling $25 Burgers & $14 Lattes!</p>
-                        <button onclick="startArcadeGame()" class="btn-primary" style="padding: 12px 32px; font-size: 1.1rem;">START PLAYING</button>
-                    </div>
+                <canvas id="arcadeCanvas" width="800" height="450"></canvas>
+                <div id="arcade-overlay" class="game-overlay">
+                    <h2 id="arcade-title-text" style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--accent-purple-bright);">INFLATION DEFENDER</h2>
+                    <p style="margin-bottom: 2rem; color: var(--text-muted); text-align: center; max-width: 400px;">Move mouse to move laser cannon. Click left mouse button to fire at inflated food tags!</p>
+                    <button onclick="startArcadeGame()" class="btn-primary" style="padding: 12px 32px; font-size: 1.1rem;">START GAME</button>
                 </div>
-            </main>
+            </div>
         </section>
 
-        <!-- 5. BLOG & NEWS FEED PAGE VIEW -->
+        <!-- 5. BLOG & NEWS ARTICLES VIEW -->
         <section id="view-blog" class="page-view">
-            <main class="page-wrapper">
-                <div style="margin-bottom: 2.5rem;">
-                    <h1 style="font-size: 2.2rem; font-weight: 900;">GAMING & INDUSTRY NEWS</h1>
-                    <p style="color: var(--text-muted);">Editorial analysis on hardware releases, fast-food greedflation, and indie game design[cite: 1].</p>
-                </div>
-
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-                    <div class="card">
-                        <div class="card-img-wrap" style="height: 200px;">
-                            <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80" alt="Fast Food Inflation Report">
-                        </div>
-                        <div class="card-body">
-                            <span style="color: var(--accent-purple-bright); font-size: 0.8rem; font-weight: bold;">SPECIAL INVESTIGATION</span>
-                            <h2 class="card-title" style="margin-top: 0.3rem;">The Fast-Food Fast-Flation Phenomenon</h2>
-                            <p class="card-desc">Why menu prices at Burger King, Starbucks, Dunkin', and McDonald's soared 100%+ and sparked satirical video games[cite: 1].</p>
-                            <a href="#article" class="btn-primary" style="text-align: center;">Read Article &rarr;</a>
-                        </div>
+            <div style="margin-bottom: 2rem;">
+                <h1 style="font-size: 2.2rem; font-weight: 900;">GAMING & INDUSTRY NEWS</h1>
+                <p style="color: var(--text-muted);">Editorial analysis covering gaming gear reviews, digital economy trends, and video game satires.</p>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div class="card">
+                    <div class="card-img-wrap" style="height: 200px;">
+                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80" alt="Fast Food Article">
                     </div>
-
-                    <div class="card">
-                        <div class="card-img-wrap" style="height: 200px;">
-                            <img src="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=600&q=80" alt="Hardware Guide">
-                        </div>
-                        <div class="card-body">
-                            <span style="color: var(--accent-purple-bright); font-size: 0.8rem; font-weight: bold;">HARDWARE GUIDE</span>
-                            <h2 class="card-title" style="margin-top: 0.3rem;">240Hz OLED vs Mini-LED Displays</h2>
-                            <p class="card-desc">Comprehensive breakdown of response times, color gamuts, and high-FPS performance for competitive gamers.</p>
-                            <a href="#article" class="btn-secondary" style="text-align: center;">Read Article</a>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-img-wrap" style="height: 200px;">
-                            <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80" alt="Satire Game Design">
-                        </div>
-                        <div class="card-body">
-                            <span style="color: var(--accent-purple-bright); font-size: 0.8rem; font-weight: bold;">GAME DESIGN</span>
-                            <h2 class="card-title" style="margin-top: 0.3rem;">The Legacy of Molleindustria Satire</h2>
-                            <p class="card-desc">How classic socio-political flash games paved the way for modern interactive economic commentary[cite: 1].</p>
-                            <a href="#article" class="btn-secondary" style="text-align: center;">Read Article</a>
-                        </div>
+                    <div class="card-body">
+                        <span style="color: var(--accent-purple-bright); font-size: 0.8rem; font-weight: bold;">SPECIAL REPORT</span>
+                        <h2 class="card-title" style="margin-top: 0.3rem;">The Fast-Food Fast-Flation Phenomenon</h2>
+                        <p class="card-desc">An investigation into why menu items across Burger King, Starbucks, Dunkin, and McDonald's outpaced inflation and inspired satire games.</p>
+                        <button onclick="navigateTo('article')" class="btn-primary" style="width: 100%;">Read Full Article &rarr;</button>
                     </div>
                 </div>
-            </main>
+                <div class="card">
+                    <div class="card-img-wrap" style="height: 200px;">
+                        <img src="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=600&q=80" alt="Hardware Review">
+                    </div>
+                    <div class="card-body">
+                        <span style="color: var(--accent-purple-bright); font-size: 0.8rem; font-weight: bold;">HARDWARE GUIDE</span>
+                        <h2 class="card-title" style="margin-top: 0.3rem;">240Hz OLED vs Mini-LED Gaming Monitors</h2>
+                        <p class="card-desc">Comparing response times, motion blur, color accuracy, and HDR depth for competitive gaming setups.</p>
+                        <button onclick="navigateTo('article')" class="btn-secondary" style="width: 100%;">Read Article</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-img-wrap" style="height: 200px;">
+                        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80" alt="Satire Design">
+                    </div>
+                    <div class="card-body">
+                        <span style="color: var(--accent-purple-bright); font-size: 0.8rem; font-weight: bold;">GAME DESIGN</span>
+                        <h2 class="card-title" style="margin-top: 0.3rem;">How Molleindustria Inspired Political Satire Games</h2>
+                        <p class="card-desc">Analyzing the legacy of the original 2006 McDonald's Video Game and modern interactive commentary.</p>
+                        <button onclick="navigateTo('article')" class="btn-secondary" style="width: 100%;">Read Article</button>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <!-- 6. SINGLE CLICKABLE ARTICLE PAGE VIEW -->
-        <section id="view-article" class="page-view">
-            <main class="page-wrapper" style="max-width: 850px;">
-                <a href="#blog" style="color: var(--accent-purple-bright); text-decoration: none; font-weight: bold;">&larr; Back to News Blog</a>
-                <h1 style="font-size: 2.6rem; font-weight: 900; margin: 1rem 0 0.5rem 0; line-height: 1.2;">THE FAST-FOOD FAST-FLATION PHENOMENON: WHY GAMERS TURNED SATIRISTS</h1>
-                <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 2rem;">Published August 2026 | By QuestLogs Editorial Staff | 6 Min Read</p>
-
-                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1000&q=80" style="width: 100%; height: 360px; object-fit: cover; border-radius: 12px; margin-bottom: 2rem; border: 1px solid var(--border-color);" alt="Fast Food Article">
-
-                <div style="font-size: 1.05rem; color: #d1cced; display: flex; flex-direction: column; gap: 1.5rem; line-height: 1.8;">
-                    <p>Over the past decade, fast-food prices across major chains including Burger King, Starbucks, Dunkin', and McDonald's have outpaced general consumer price index inflation[cite: 1]. What was once affordable convenience dining has increasingly turned into a luxury expense[cite: 1].</p>
-                    <h3 style="color: #fff; font-size: 1.4rem;">From Dollar Menus to $18 Value Meals</h3>
-                    <p>Data indicates menu items have increased over 100% since 2014[cite: 1]. While corporate communications cite rising labor costs and supply chain disruptions, industry analysts highlight record profit margins as evidence of greedflation[cite: 1].</p>
-                    <blockquote style="background: var(--bg-card); border-left: 4px solid var(--accent-purple); padding: 1.2rem; margin: 1rem 0; font-style: italic; color: #fff;">"When a combo meal costs as much as a mechanical keyboard over a few weeks, gamers take notice."[cite: 1]</blockquote>
-                    <p>By simulating corporate decisions in interactive games, players directly experience the systemic pressure to prioritize quarterly profits over consumer accessibility[cite: 1].</p>
-                    <div style="margin-top: 1.5rem; padding: 1.5rem; background: var(--bg-card); border: 1px solid var(--accent-purple); border-radius: 12px; text-align: center;">
-                        <h3 style="color: #fff; margin-bottom: 0.5rem;">Test Your CEO Skills</h3>
-                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">Play our McFast® Inflation Tycoon simulator right inside your browser[cite: 1]!</p>
-                        <a href="#tycoon" class="btn-primary">Launch Satire Game &rarr;</a>
-                    </div>
+        <!-- 6. SINGLE ARTICLE READ VIEW -->
+        <section id="view-article" class="page-view" style="max-width: 850px; margin: 0 auto;">
+            <span style="background: rgba(129,65,255,0.2); color: var(--accent-purple-bright); padding: 4px 12px; border-radius: 12px; font-size: 0.85rem; font-weight: bold;">INDUSTRY ANALYSIS</span>
+            <h1 style="font-size: 2.5rem; font-weight: 900; margin: 1rem 0 0.5rem 0; line-height: 1.2;">THE FAST-FOOD FAST-FLATION PHENOMENON: WHY GAMERS TURNED SATIRISTS</h1>
+            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">Published August 2026 | By QuestLogs Editorial Team | 6 Min Read</p>
+            <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1000&q=80" style="width: 100%; height: 350px; object-fit: cover; border-radius: 12px; margin-bottom: 1.5rem; border: 1px solid var(--border-color);" alt="Fast Food Satire">
+            <div style="font-size: 1.05rem; color: #d1cced; display: flex; flex-direction: column; gap: 1.2rem; line-height: 1.7;">
+                <p>Over the past decade, fast-food prices across major chains like Burger King, Starbucks, Dunkin', and McDonald's have dramatically outstripped headline inflation rates. What was once budget-friendly convenience dining has increasingly evolved into a luxury, sparking widespread commentary and interactive satirical simulations.</p>
+                <h2 style="color: #fff; font-size: 1.5rem; margin-top: 0.5rem;">From Dollar Menus to $18 Value Combos</h2>
+                <p>Economic data reveals that menu items at major fast-food franchises have risen by over 100% since 2014. Factors frequently cited by executives include rising labor wages, supply chain bottlenecks, and agricultural costs. However, critics point to record gross margins as evidence of corporate price strategy.</p>
+                <blockquote style="background: var(--bg-card); border-left: 4px solid var(--accent-purple); padding: 1rem; margin: 0.5rem 0; font-style: italic; color: #fff;">
+                    "When a basic fast-food meal costs as much as a high-end mechanical gaming keyboard over a few weeks of dining, gamers realize something is broken in consumer economics."
+                </blockquote>
+                <h2 style="color: #fff; font-size: 1.5rem; margin-top: 0.5rem;">Interactive Satire as Commentary</h2>
+                <p>Building upon the legacy of Molleindustria's famous 2006 flash game <em>McDonald's Video Game</em>, web-based simulators place players directly in the role of corporate executives balancing rainforest deforestation, hormone usage, price hikes, and PR spin.</p>
+                <div style="margin-top: 1rem; padding: 1.5rem; background: var(--bg-card); border: 1px solid var(--accent-purple); border-radius: 12px; text-align: center;">
+                    <h3 style="color: #fff; margin-bottom: 0.5rem;">Experience the strategy simulation yourself</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">Play our original McFast-Food Inflation Tycoon directly in your browser.</p>
+                    <button onclick="navigateTo('satire')" class="btn-primary">Launch Satire Simulation &rarr;</button>
                 </div>
-            </main>
+            </div>
         </section>
 
         <!-- 7. ABOUT PAGE VIEW -->
         <section id="view-about" class="page-view">
-            <main class="page-wrapper" style="max-width: 900px;">
-                <h1 style="font-size: 2.5rem; font-weight: 900; margin-bottom: 1rem;">ABOUT QUESTLOGS NETWORK</h1>
-                <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2rem;">QuestLogs is a hybrid platform bridging high-end esports gaming hardware and interactive media[cite: 1].</p>
-                <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
-                    <h2 style="color: var(--accent-purple-bright); margin-bottom: 1rem;">Our Dual Mission</h2>
-                    <p style="margin-bottom: 1rem;">1. <strong>Esports Equipment Store:</strong> Provide competitive gamers with vetted mechanical keyboards, OLED displays, and ultra-lightweight mice[cite: 1].</p>
-                    <p>2. <strong>Interactive Media & Satire:</strong> Build engaging web games that comment on real-world economic conditions, such as fast-food price hikes and corporate greedflation[cite: 1].</p>
-                </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
-                    <div style="background: var(--bg-card); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-color);">
-                        <h3>Headquarters</h3>
-                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">123 Quest Way, Suite 100<br>Austin, TX 78701[cite: 1]</p>
+            <div style="max-width: 800px; margin: 0 auto;">
+                <h1 style="font-size: 2.2rem; font-weight: 900; margin-bottom: 1rem;">ABOUT QUESTLOGS NETWORK</h1>
+                <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 1.5rem;">QuestLogs is a hybrid platform bridging top-tier esports video game hardware with gaming journalism and interactive economic satire simulations.</p>
+                <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.8rem; margin-bottom: 2rem;">
+                    <h3 style="color: var(--accent-purple-bright); margin-bottom: 0.8rem;">Our Mission</h3>
+                    <p style="color: #d1cced; margin-bottom: 1rem;">Founded in Austin, Texas, QuestLogs aims to empower gamers with low-latency hardware while creating playable digital art that critically examines modern consumer economics and fast-food corporate structures.</p>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
+                        <div>
+                            <h4 style="color:#fff;">Hardware Rigor</h4>
+                            <p style="color: var(--text-muted); font-size: 0.85rem;">Curated optical keyboards, 240Hz OLED monitors, and wireless audio setups.</p>
+                        </div>
+                        <div>
+                            <h4 style="color:#fff;">Satirical Media</h4>
+                            <p style="color: var(--text-muted); font-size: 0.85rem;">Interactive web simulations exposing fast-food price gouging and corporate mechanics.</p>
+                        </div>
                     </div>
-                    <div style="background: var(--bg-card); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-color);">
-                        <h3>Official Contact</h3>
-                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">Phone: (512) 555-0199[cite: 1]<br>Website: https://questlogs.com[cite: 1]</p>
-                    </div>
                 </div>
-            </main>
+            </div>
         </section>
 
         <!-- 8. CONTACT PAGE VIEW -->
         <section id="view-contact" class="page-view">
-            <main class="page-wrapper" style="max-width: 700px;">
+            <div style="max-width: 800px; margin: 0 auto;">
                 <h1 style="font-size: 2.2rem; font-weight: 900; margin-bottom: 0.5rem;">CONTACT QUESTLOGS</h1>
-                <p style="color: var(--text-muted); margin-bottom: 2rem;">Have questions regarding gaming equipment orders or our satire simulations[cite: 1]?</p>
-                
-                <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 2rem;">
-                    <form onsubmit="event.preventDefault(); alert('Message sent successfully! Our team in Austin, TX will respond shortly.');">
-                        <div class="form-group">
-                            <label>Full Name</label>
-                            <input type="text" placeholder="Alex Mercer" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Email Address</label>
-                            <input type="email" placeholder="gamer@questlogs.com" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Subject</label>
-                            <input type="text" placeholder="Equipment Inquiry or Feedback" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Message</label>
-                            <textarea rows="5" placeholder="Write your message here..." required></textarea>
-                        </div>
+                <p style="color: var(--text-muted); margin-bottom: 2rem;">Have questions regarding an order, hardware compatibility, or game suggestions? Reach out below.</p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem;">
+                        <h3 style="margin-bottom: 1rem; color: var(--accent-purple-bright);">Company Details</h3>
+                        <p style="margin-bottom: 0.5rem;"><strong>Website:</strong> https://questlogs.com</p>
+                        <p style="margin-bottom: 0.5rem;"><strong>Address:</strong> 123 Quest Way, Suite 100, Austin, TX 78701</p>
+                        <p style="margin-bottom: 0.5rem;"><strong>Phone:</strong> (512) 555-0199</p>
+                        <p style="margin-bottom: 0.5rem;"><strong>Support Email:</strong> support@questlogs.com</p>
+                    </div>
+                    <form onsubmit="event.preventDefault(); alert('Message sent successfully! Our team will contact you within 24 hours.');" style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem;">
+                        <div class="form-group"><label>Your Name</label><input type="text" required placeholder="Alex Mercer"></div>
+                        <div class="form-group"><label>Email Address</label><input type="email" required placeholder="alex@domain.com"></div>
+                        <div class="form-group"><label>Message</label><textarea rows="4" required placeholder="How can we help?"></textarea></div>
                         <button type="submit" class="btn-primary" style="width: 100%;">Send Message</button>
                     </form>
                 </div>
-            </main>
+            </div>
         </section>
 
-        <!-- 9. SHOPPING CART PAGE VIEW -->
+        <!-- 9. SHOPPING CART VIEW -->
         <section id="view-cart" class="page-view">
-            <main class="page-wrapper">
-                <h1 style="font-size: 2.2rem; font-weight: 900; margin-bottom: 1.5rem;">YOUR SHOPPING CART</h1>
-
-                <div id="cart-empty-msg" style="display: none; text-align: center; padding: 4rem 1rem;">
-                    <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: 1.5rem;">Your shopping cart is currently empty[cite: 3].</p>
-                    <a href="#shop" class="btn-primary">Browse Equipment Store &rarr;</a>
+            <h1 style="font-size: 2.2rem; font-weight: 900; margin-bottom: 1.5rem;">YOUR SHOPPING CART</h1>
+            <div id="cart-empty-msg" style="display: none; text-align: center; padding: 3rem 1rem;">
+                <p style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 1.5rem;">Your shopping cart is empty.</p>
+                <button onclick="navigateTo('shop')" class="btn-primary">Browse Gaming Hardware &rarr;</button>
+            </div>
+            <div id="cart-content">
+                <table class="cart-table">
+                    <thead>
+                        <tr>
+                            <th>Product</th><th>Price</th><th>Quantity</th><th>Total</th><th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cart-rows"></tbody>
+                </table>
+                <div class="cart-summary">
+                    <h3 style="margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">Order Summary</h3>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;"><span>Subtotal:</span><span id="subtotal-val">$0.00</span></div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;"><span>Shipping:</span><span style="color: var(--success);">FREE</span></div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 1.5rem; font-size: 1.2rem; font-weight: bold;"><span>Total:</span><span id="grandtotal-val" style="color: var(--accent-purple-bright);">$0.00</span></div>
+                    <button onclick="checkout()" class="btn-primary" style="width: 100%;">Proceed to Checkout</button>
                 </div>
-
-                <div id="cart-content">
-                    <table class="cart-table">
-                        <thead>
-                            <tr>
-                                <th>Product</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                                <th>Total</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="cart-rows"></tbody>
-                    </table>
-
-                    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem; max-width: 400px; margin-left: auto;">
-                        <h3 style="margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">Order Summary</h3>
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                            <span>Subtotal:</span>
-                            <span id="subtotal-val">$0.00</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                            <span>Shipping:</span>
-                            <span style="color: var(--success);">FREE</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 1.5rem; font-size: 1.2rem; font-weight: bold;">
-                            <span>Grand Total:</span>
-                            <span id="grandtotal-val" style="color: var(--accent-purple-bright);">$0.00</span>
-                        </div>
-                        <button onclick="checkout()" class="btn-primary" style="width: 100%;">Proceed to Checkout</button>
-                    </div>
-                </div>
-            </main>
+            </div>
         </section>
 
-        <!-- 10. ACCOUNT LOGIN / SIGNUP PAGE VIEW -->
-        <section id="view-account" class="page-view">
-            <main class="page-wrapper">
-                <div class="auth-container">
-                    <div style="display: flex; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-color);">
-                        <div id="tab-login" style="flex:1; text-align:center; padding:0.8rem; font-weight:bold; cursor:pointer; color:var(--accent-purple-bright); border-bottom:2px solid var(--accent-purple-bright);" onclick="switchAuthTab('login')">Sign In</div>
-                        <div id="tab-signup" style="flex:1; text-align:center; padding:0.8rem; font-weight:bold; cursor:pointer; color:var(--text-muted);" onclick="switchAuthTab('signup')">Create Account</div>
-                    </div>
-
-                    <form id="form-login" onsubmit="handleAuth(event, 'Sign In')">
-                        <div class="form-group">
-                            <label>Email Address</label>
-                            <input type="email" placeholder="gamer@questlogs.com" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" placeholder="••••••••" required>
-                        </div>
-                        <button type="submit" class="btn-primary" style="width: 100%;">Sign In</button>
-                    </form>
-
-                    <form id="form-signup" onsubmit="handleAuth(event, 'Account Registration')" style="display: none;">
-                        <div class="form-group">
-                            <label>Gamertag / Username</label>
-                            <input type="text" placeholder="CyberKnight99" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Email Address</label>
-                            <input type="email" placeholder="gamer@questlogs.com" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" placeholder="••••••••" required>
-                        </div>
-                        <button type="submit" class="btn-primary" style="width: 100%;">Create Account</button>
-                    </form>
+        <!-- 10. ACCOUNT LOGIN / SIGNUP VIEW -->
+        <section id="view-login" class="page-view">
+            <div class="auth-container">
+                <div class="auth-tabs">
+                    <div id="tab-login-btn" class="auth-tab active" onclick="switchAuthTab('login')">Sign In</div>
+                    <div id="tab-signup-btn" class="auth-tab" onclick="switchAuthTab('signup')">Create Account</div>
                 </div>
-            </main>
+                <form id="form-login" onsubmit="handleAuth(event, 'Login')">
+                    <div class="form-group"><label>Email Address</label><input type="email" placeholder="gamer@questlogs.com" required></div>
+                    <div class="form-group"><label>Password</label><input type="password" placeholder="••••••••" required></div>
+                    <button type="submit" class="btn-primary" style="width: 100%;">Sign In</button>
+                </form>
+                <form id="form-signup" onsubmit="handleAuth(event, 'Registration')" style="display: none;">
+                    <div class="form-group"><label>Full Name</label><input type="text" placeholder="Alex Mercer" required></div>
+                    <div class="form-group"><label>Email Address</label><input type="email" placeholder="gamer@questlogs.com" required></div>
+                    <div class="form-group"><label>Password</label><input type="password" placeholder="••••••••" required></div>
+                    <button type="submit" class="btn-primary" style="width: 100%;">Create Account</button>
+                </form>
+            </div>
         </section>
 
     </div>
 
-    <!-- PRODUCT DETAIL MODAL OVERLAY -->
+    <!-- PRODUCT DETAIL MODAL -->
     <div id="product-modal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal()">&times;</span>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: center;">
-                <img id="modal-img" src="" alt="" style="width: 100%; height: 220px; object-fit: cover; border-radius: 8px;">
+                <img id="modal-img" src="" alt="" style="width: 100%; height: 230px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border-color);">
                 <div>
                     <span id="modal-cat" style="background: rgba(129,65,255,0.2); color: var(--accent-purple-bright); padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold;"></span>
                     <h2 id="modal-title" style="font-size: 1.2rem; margin: 0.5rem 0;"></h2>
@@ -548,73 +475,63 @@
         </div>
     </div>
 
-    <!-- GLOBAL FOOTER AREA -->
+    <!-- FOOTER AREA -->
     <footer class="main-footer">
         <div class="footer-container">
             <div class="footer-col">
                 <h3>QUESTLOGS NETWORK</h3>
-                <p>Your ultimate destination for professional esports hardware, gaming media, and corporate satire simulations[cite: 1].</p>
-                <p><strong>Address:</strong> 123 Quest Way, Suite 100, Austin, TX 78701[cite: 1]</p>
-                <p><strong>Phone:</strong> (512) 555-0199[cite: 1]</p>
-                <p><strong>Website:</strong> https://questlogs.com[cite: 1]</p>
+                <p>Your ultimate destination for professional esports hardware, gaming media, and corporate fast-food satire games.</p>
+                <p><strong>Address:</strong> 123 Quest Way, Suite 100, Austin, TX 78701</p>
+                <p><strong>Phone:</strong> (512) 555-0199</p>
+                <p><strong>Website:</strong> https://questlogs.com</p>
             </div>
             <div class="footer-col">
-                <h4>Quick Navigation</h4>
+                <h4>Navigation</h4>
                 <ul>
-                    <li><a href="#home">Home Page</a></li>
-                    <li><a href="#shop">Gaming Gear Store (20+)[cite: 1]</a></li>
-                    <li><a href="#tycoon">Fast-Food Satire Game[cite: 1]</a></li>
-                    <li><a href="#arcade">Inflation Defender Arcade</a></li>
-                    <li><a href="#blog">Industry News & Articles[cite: 1]</a></li>
+                    <li><a onclick="navigateTo('home')">Home</a></li>
+                    <li><a onclick="navigateTo('shop')">Gaming Equipment Store</a></li>
+                    <li><a onclick="navigateTo('satire')">Fast-Food Tycoon Game</a></li>
+                    <li><a onclick="navigateTo('arcade')">Inflation Defender Minigame</a></li>
+                    <li><a onclick="navigateTo('blog')">Industry News & Blog</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Customer Service</h4>
+                <h4>Customer Support</h4>
                 <ul>
-                    <li><a href="#about">About QuestLogs[cite: 1]</a></li>
-                    <li><a href="#contact">Contact Support[cite: 1]</a></li>
-                    <li><a href="#cart">View Cart & Checkout[cite: 1]</a></li>
-                    <li><a href="#account">Account Sign In[cite: 1]</a></li>
+                    <li><a onclick="navigateTo('about')">About Us</a></li>
+                    <li><a onclick="navigateTo('contact')">Contact Page</a></li>
+                    <li><a onclick="navigateTo('cart')">Shopping Cart</a></li>
+                    <li><a onclick="navigateTo('login')">Account Sign In</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Subscribe to Newsletter</h4>
-                <p>Get updates on hardware drops and satirical game releases[cite: 1].</p>
-                <form onsubmit="event.preventDefault(); alert('Subscribed to QuestLogs!');" style="margin-top:8px;">
-                    <input type="email" placeholder="Enter your email" required style="width:100%; padding:8px; border-radius:4px; border:1px solid #332363; background:#0b081d; color:#fff; margin-bottom:6px;">
-                    <button type="submit" class="btn-primary" style="width:100%; padding:8px;">Subscribe</button>
+                <h4>Newsletter</h4>
+                <p>Subscribe for hardware updates & satirical game releases.</p>
+                <form onsubmit="event.preventDefault(); alert('Subscribed to QuestLogs Newsletter!');" style="margin-top:8px;">
+                    <input type="email" placeholder="Enter email" required style="width:100%; padding:8px; border-radius:4px; border:1px solid #332363; background:#0b081d; color:#fff; margin-bottom:8px;">
+                    <button type="submit" style="width:100%; padding:8px; background:#8141ff; color:#fff; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">Subscribe</button>
                 </form>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 QuestLogs Interactive Network. All Rights Reserved. Address: 123 Quest Way, Suite 100, Austin, TX 78701 | Phone: (512) 555-0199[cite: 1]</p>
+            <p>&copy; 2026 QuestLogs Interactive Network. All Rights Reserved. Address: 123 Quest Way, Suite 100, Austin, TX 78701 | Phone: (512) 555-0199</p>
         </div>
     </footer>
 
-    <!-- INTERACTIVE JAVASCRIPT LOGIC (ROUTER, STORE, & GAMES) -->
+    <!-- INTERACTIVE JAVASCRIPT LOGIC -->
     <script>
-        /* 1. 20+ PRODUCTS DATABASE & E-COMMERCE LOGIC */
+        /* ----------------------------------------------------
+           1. PRODUCTS DATA & CART STATE
+        ---------------------------------------------------- */
         const PRODUCTS = [
-            { id: 1, name: "Apex RGB Mechanical Keyboard", price: 149.99, category: "Keyboards", rating: 4.8, img: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=600&q=80", desc: "Ultra-fast optical-magnetic switches with custom per-key RGB lighting and aluminum top plate[cite: 9]." },
-            { id: 2, name: "Viper Pro Ultra-Light Wireless Mouse", price: 89.99, category: "Mice", rating: 4.9, img: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?auto=format&fit=crop&w=600&q=80", desc: "49g ultra-lightweight design with 30K DPI optical sensor and 90 hours of continuous battery life[cite: 9]." },
-            { id: 3, name: "Titan 34\" Ultrawide OLED Monitor", price: 899.99, category: "Monitors", rating: 4.9, img: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=600&q=80", desc: "240Hz refresh rate, 0.03ms response time, Quantum Dot OLED display with 1800R curvature[cite: 9]." },
-            { id: 4, name: "Acoustic Command Wireless Headset", price: 179.99, category: "Audio", rating: 4.7, img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80", desc: "Lossless 2.4GHz wireless connection, 50mm drivers, and active noise cancellation[cite: 9]." },
-            { id: 5, name: "ErgoThrone Ergonomic Chair", price: 349.99, category: "Chairs", rating: 4.6, img: "https://images.unsplash.com/photo-1598550476439-6847785fcea6?auto=format&fit=crop&w=600&q=80", desc: "Breathable mesh back support, 4D adjustable armrests, and memory foam cushion[cite: 9]." },
-            { id: 6, name: "StreamDeck Pro 15-Key Studio Controller", price: 129.99, category: "Streaming", rating: 4.8, img: "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80", desc: "Customizable LCD keys to launch actions, trigger media, and control smart lighting instantly[cite: 9]." },
-            { id: 7, name: "Cardioid USB Condenser Microphone", price: 109.99, category: "Audio", rating: 4.5, img: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=600&q=80", desc: "Studio-grade 24-bit/192kHz recording capsule with tap-to-mute sensor[cite: 9]." },
-            { id: 8, name: "RGB LED XXL Desk Mat Pad", price: 34.99, category: "Accessories", rating: 4.4, img: "https://images.unsplash.com/photo-1616440347437-b1c73416efc2?auto=format&fit=crop&w=600&q=80", desc: "Micro-textured cloth surface optimized for all mouse sensors with RGB lighting[cite: 9]." },
-            { id: 9, name: "CyberDeck VR Headset & Motion Controllers", price: 599.99, category: "VR Gear", rating: 4.8, img: "https://images.unsplash.com/photo-1622979135225-d2ba269bc1bd?auto=format&fit=crop&w=600&q=80", desc: "Dual 4K fast-switch LCD panels, 120Hz refresh, and inside-out tracking precision[cite: 9]." },
-            { id: 10, name: "Flight Simulator Joystick & Throttle", price: 249.99, category: "Controllers", rating: 4.9, img: "https://images.unsplash.com/photo-1600080972464-8e5f35f63d08?auto=format&fit=crop&w=600&q=80", desc: "Dual-throttle setup with Hall Effect sensors and 31 programmable physical buttons[cite: 9]." },
-            { id: 11, name: "Liquid Cooled PC Desktop Rig", price: 2499.99, category: "Desktops", rating: 5.0, img: "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=600&q=80", desc: "Intel i9-14900KS, RTX 4090 24GB, 64GB DDR5 RAM, custom hard-line liquid loop[cite: 9]." },
-            { id: 12, name: "Dual-Monitor Heavy-Duty Gas Arm", price: 79.99, category: "Accessories", rating: 4.6, img: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=600&q=80", desc: "Supports two 17\" to 32\" screens with integrated cable management channels[cite: 9]." },
-            { id: 13, name: "Wireless Charging Mouse Pad", price: 49.99, category: "Accessories", rating: 4.3, img: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?auto=format&fit=crop&w=600&q=80", desc: "15W Qi fast-wireless charging zone built right into a gaming desk mat[cite: 9]." },
-            { id: 14, name: "Force Feedback Racing Wheel", price: 399.99, category: "Controllers", rating: 4.8, img: "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80", desc: "Direct drive motor, leather wheel rim, magnetic paddle shifters, and load-cell pedal[cite: 9]." },
-            { id: 15, name: "Studio Monitor Desktop Speakers", price: 199.99, category: "Audio", rating: 4.7, img: "https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=600&q=80", desc: "Bi-amplified active studio monitors with Kevlar low-frequency drivers[cite: 9]." },
-            { id: 16, name: "Handheld Gaming Console 1TB", price: 649.99, category: "Consoles", rating: 4.8, img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80", desc: "7-inch 120Hz OLED screen, AMD Z1 Extreme APU, 16GB LPDDR5, full Windows gaming PC[cite: 9]." },
-            { id: 17, name: "Capture Card 4K60 Pro Passthrough", price: 159.99, category: "Streaming", rating: 4.6, img: "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=600&q=80", desc: "Zero-lag 4K HDR10 passthrough with 1080p 60fps streaming recording via USB 3.0[cite: 9]." },
-            { id: 18, name: "Key Light Panel Studio Accent Light", price: 89.99, category: "Streaming", rating: 4.5, img: "https://images.unsplash.com/photo-1598550476439-6847785fcea6?auto=format&fit=crop&w=600&q=80", desc: "2800 lumens Wi-Fi app-controlled key lighting with desk clamp mount[cite: 9]." },
-            { id: 19, name: "Mechanical Numpad Keypad", price: 39.99, category: "Keyboards", rating: 4.4, img: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=600&q=80", desc: "Dedicated 21-key numeric pad with lubricated linear switches and PBT keycaps[cite: 9]." },
-            { id: 20, name: "Ultra-Fast NVMe M.2 4TB SSD Gen4", price: 289.99, category: "Components", rating: 4.9, img: "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=600&q=80", desc: "Blazing read speeds up to 7450 MB/s with custom aluminum heatsink pre-installed[cite: 9]." }
+            { id: 1, name: "Apex RGB Mechanical Keyboard", price: 149.99, category: "Keyboards", rating: 4.8, img: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=600&q=80", desc: "Ultra-fast optical switches with per-key RGB lighting and aircraft-grade aluminum top plate." },
+            { id: 2, name: "Viper Pro Ultra-Light Wireless Mouse", price: 89.99, category: "Mice", rating: 4.9, img: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?auto=format&fit=crop&w=600&q=80", desc: "49g ultra-lightweight design with 30K DPI optical sensor and 90 hours battery life." },
+            { id: 3, name: "Titan 34\" Ultrawide Curved OLED Monitor", price: 899.99, category: "Monitors", rating: 4.9, img: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=600&q=80", desc: "240Hz refresh rate, 0.03ms response time, Quantum Dot OLED display with 1800R curvature." },
+            { id: 4, name: "Acoustic Command Wireless Headset", price: 179.99, category: "Audio", rating: 4.7, img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80", desc: "Lossless 2.4GHz wireless connection, 50mm drivers, active noise cancellation, and retractable mic." },
+            { id: 5, name: "StreamDeck Pro 15-Key Studio Controller", price: 129.99, category: "Streaming", rating: 4.8, img: "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80", desc: "Customizable LCD keys to launch actions, trigger audio clips, and adjust stream settings." },
+            { id: 6, name: "Cardioid USB Condenser Studio Mic", price: 109.99, category: "Audio", rating: 4.5, img: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=600&q=80", desc: "Studio-grade 24-bit/192kHz capsule with tap-to-mute sensor, gain dial, and shock mount." },
+            { id: 7, name: "RGB LED XXL Desk Mat Pad (900x400mm)", price: 34.99, category: "Accessories", rating: 4.4, img: "https://images.unsplash.com/photo-1616440347437-b1c73416efc2?auto=format&fit=crop&w=600&q=80", desc: "Micro-textured cloth surface optimized for all mouse sensors with dynamic RGB perimeter lighting." },
+            { id: 8, name: "Overclocked Liquid Cooled PC Desktop Rig", price: 2499.99, category: "Desktops", rating: 5.0, img: "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=600&q=80", desc: "Intel i9 processor, RTX 4090 24GB, 64GB DDR5 RAM, hard-line liquid cooling loop." }
         ];
 
         let cart = JSON.parse(localStorage.getItem('questlogs_cart')) || [];
@@ -625,22 +542,94 @@
         }
 
         function updateCartCount() {
-            let count = cart.reduce((total, item) => total + item.qty, 0);
+            let count = cart.reduce((acc, item) => acc + item.qty, 0);
             document.querySelectorAll('.cart-badge').forEach(b => b.innerText = count);
         }
 
         function addToCart(productId) {
-            let product = PRODUCTS.find(p => p.id === productId);
-            if (!product) return;
+            let prod = PRODUCTS.find(p => p.id === productId);
+            if (!prod) return;
             let existing = cart.find(item => item.id === productId);
-            if (existing) { existing.qty++; } else { cart.push({ id: product.id, name: product.name, price: product.price, img: product.img, qty: 1 }); }
+            if (existing) { existing.qty++; } else { cart.push({ id: prod.id, name: prod.name, price: prod.price, img: prod.img, qty: 1 }); }
             saveCart();
-            alert(`Added "${product.name}" to your cart!`);
+            alert(`Added "${prod.name}" to your shopping cart!`);
+        }
+
+        function changeQty(id, delta) {
+            let item = cart.find(i => i.id === id);
+            if (item) {
+                item.qty += delta;
+                if (item.qty <= 0) { cart = cart.filter(i => i.id !== id); }
+                saveCart();
+                renderCart();
+            }
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(i => i.id !== id);
+            saveCart();
+            renderCart();
+        }
+
+        function renderCart() {
+            const rows = document.getElementById('cart-rows');
+            const emptyMsg = document.getElementById('cart-empty-msg');
+            const cartContent = document.getElementById('cart-content');
+
+            if (!cart || cart.length === 0) {
+                emptyMsg.style.display = 'block';
+                cartContent.style.display = 'none';
+                return;
+            }
+            emptyMsg.style.display = 'none';
+            cartContent.style.display = 'block';
+            rows.innerHTML = '';
+            let total = 0;
+            cart.forEach(item => {
+                let itemTotal = item.price * item.qty;
+                total += itemTotal;
+                rows.innerHTML += `
+                    <tr>
+                        <td><div style="display:flex; align-items:center; gap:1rem;"><img src="${item.img}" class="cart-item-img"><span style="font-weight:bold;">${item.name}</span></div></td>
+                        <td>$${item.price.toFixed(2)}</td>
+                        <td><button onclick="changeQty(${item.id}, -1)" class="qty-btn">-</button><span style="margin:0 8px; font-weight:bold;">${item.qty}</span><button onclick="changeQty(${item.id}, 1)" class="qty-btn">+</button></td>
+                        <td style="font-weight:bold;">$${itemTotal.toFixed(2)}</td>
+                        <td><button onclick="removeFromCart(${item.id})" style="background:transparent; border:none; color:var(--danger); cursor:pointer; font-weight:bold;">Remove</button></td>
+                    </tr>
+                `;
+            });
+            document.getElementById('subtotal-val').innerText = `$${total.toFixed(2)}`;
+            document.getElementById('grandtotal-val').innerText = `$${total.toFixed(2)}`;
+        }
+
+        function checkout() {
+            alert('Order submitted successfully! Thank you for purchasing from QuestLogs Hardware Store.');
+            cart = [];
+            saveCart();
+            renderCart();
+        }
+
+        /* ----------------------------------------------------
+           2. CLIENT SIDE ROUTING & NAVIGATION
+        ---------------------------------------------------- */
+        function navigateTo(viewId) {
+            document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active'));
+            document.querySelectorAll('.main-nav a').forEach(a => a.classList.remove('active'));
+
+            const targetView = document.getElementById(`view-${viewId}`);
+            if (targetView) targetView.classList.add('active');
+
+            const targetNav = document.getElementById(`nav-${viewId}`);
+            if (targetNav) targetNav.classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            if (viewId === 'cart') renderCart();
+            if (viewId === 'shop') renderShop(PRODUCTS);
         }
 
         function renderShop(items) {
-            const grid = document.getElementById('shop-grid');
-            if (!grid) return;
+            const grid = document.getElementById('shop-products-grid');
             grid.innerHTML = '';
             items.forEach(p => {
                 grid.innerHTML += `
@@ -649,14 +638,34 @@
                         <div class="card-body">
                             <div class="rating">★★★★★ (${p.rating})</div>
                             <h3 class="card-title">${p.name}</h3>
-                            <p class="card-desc">${p.desc.substring(0, 75)}...</p>
+                            <p class="card-desc">${p.desc.substring(0, 80)}...</p>
                             <div class="card-price">$${p.price.toFixed(2)}</div>
-                            <div style="display: flex; gap: 0.4rem;">
-                                <button onclick="addToCart(${p.id})" class="btn-primary" style="flex:1; padding: 6px 10px; font-size: 0.8rem;">Add to Cart</button>
-                                <button onclick="viewDetails(${p.id})" class="btn-secondary" style="padding: 6px 10px; font-size: 0.8rem;">View Detail</button>
+                            <div style="display:flex; gap:0.5rem;">
+                                <button onclick="addToCart(${p.id})" class="btn-primary" style="flex:1; padding:6px; font-size:0.8rem;">Add to Cart</button>
+                                <button onclick="viewDetails(${p.id})" class="btn-secondary" style="padding:6px 10px; font-size:0.8rem;">Details</button>
                             </div>
                         </div>
-                    </div>`;
+                    </div>
+                `;
+            });
+        }
+
+        function renderHomeProducts() {
+            const grid = document.getElementById('home-products-grid');
+            grid.innerHTML = '';
+            PRODUCTS.slice(0, 4).forEach(p => {
+                grid.innerHTML += `
+                    <div class="card">
+                        <div class="card-img-wrap"><img src="${p.img}" alt="${p.name}"></div>
+                        <div class="card-body">
+                            <div class="rating">★★★★★ (${p.rating})</div>
+                            <h3 class="card-title">${p.name}</h3>
+                            <p class="card-desc">${p.desc}</p>
+                            <div class="card-price">$${p.price.toFixed(2)}</div>
+                            <button onclick="addToCart(${p.id})" class="btn-primary" style="width:100%;">Add to Cart</button>
+                        </div>
+                    </div>
+                `;
             });
         }
 
@@ -680,176 +689,139 @@
 
         function closeModal() { document.getElementById('product-modal').style.display = 'none'; }
 
-        function renderCart() {
-            const rows = document.getElementById('cart-rows');
-            const emptyMsg = document.getElementById('cart-empty-msg');
-            const cartContent = document.getElementById('cart-content');
-            if (!cart || cart.length === 0) {
-                if (emptyMsg) emptyMsg.style.display = 'block';
-                if (cartContent) cartContent.style.display = 'none';
-                return;
-            }
-            if (emptyMsg) emptyMsg.style.display = 'none';
-            if (cartContent) cartContent.style.display = 'block';
-            rows.innerHTML = '';
-            let total = 0;
-            cart.forEach(item => {
-                let itemTotal = item.price * item.qty;
-                total += itemTotal;
-                rows.innerHTML += `
-                    <tr>
-                        <td>
-                            <div style="display: flex; align-items: center; gap: 0.8rem;">
-                                <img src="${item.img}" style="width: 45px; height: 45px; object-fit: cover; border-radius: 4px;" alt="${item.name}">
-                                <span style="font-weight: bold; font-size: 0.9rem;">${item.name}</span>
-                            </div>
-                        </td>
-                        <td>$${item.price.toFixed(2)}</td>
-                        <td>
-                            <button onclick="changeQty(${item.id}, -1)" class="qty-btn">-</button>
-                            <span style="margin: 0 6px; font-weight: bold;">${item.qty}</span>
-                            <button onclick="changeQty(${item.id}, 1)" class="qty-btn">+</button>
-                        </td>
-                        <td style="font-weight: bold;">$${itemTotal.toFixed(2)}</td>
-                        <td><button onclick="removeFromCart(${item.id})" style="background: transparent; border: none; color: var(--danger); cursor: pointer;">Remove</button></td>
-                    </tr>`;
-            });
-            document.getElementById('subtotal-val').innerText = `$${total.toFixed(2)}`;
-            document.getElementById('grandtotal-val').innerText = `$${total.toFixed(2)}`;
-        }
+        function switchAuthTab(tab) {
+            const loginForm = document.getElementById('form-login');
+            const signupForm = document.getElementById('form-signup');
+            const tabLoginBtn = document.getElementById('tab-login-btn');
+            const tabSignupBtn = document.getElementById('tab-signup-btn');
 
-        function changeQty(id, delta) {
-            let item = cart.find(i => i.id === id);
-            if (item) {
-                item.qty += delta;
-                if (item.qty <= 0) cart = cart.filter(i => i.id !== id);
-                saveCart();
-                renderCart();
-            }
-        }
-
-        function removeFromCart(id) {
-            cart = cart.filter(i => i.id !== id);
-            saveCart();
-            renderCart();
-        }
-
-        function checkout() {
-            alert('Order placed successfully! Thank you for supporting QuestLogs.');
-            cart = [];
-            saveCart();
-            renderCart();
-        }
-
-        /* 2. SINGLE PAGE APPLICATION ROUTER LOGIC */
-        function handleRouting() {
-            let hash = window.location.hash || '#home';
-            let views = document.querySelectorAll('.page-view');
-            views.forEach(v => v.classList.remove('active'));
-
-            let activeNavs = document.querySelectorAll('.main-nav a');
-            activeNavs.forEach(a => a.classList.remove('active-link'));
-
-            let targetView = document.getElementById('view-' + hash.replace('#', ''));
-            if (targetView) {
-                targetView.classList.add('active');
+            if (tab === 'login') {
+                loginForm.style.display = 'block'; signupForm.style.display = 'none';
+                tabLoginBtn.classList.add('active'); tabSignupBtn.classList.remove('active');
             } else {
-                document.getElementById('view-home').classList.add('active');
+                loginForm.style.display = 'none'; signupForm.style.display = 'block';
+                tabLoginBtn.classList.remove('active'); tabSignupBtn.classList.add('active');
+            }
+        }
+
+        function handleAuth(e, type) {
+            e.preventDefault();
+            alert(`${type} successful! Welcome to QuestLogs Interactive Network.`);
+            navigateTo('home');
+        }
+
+        /* ----------------------------------------------------
+           3. FAST FOOD SATIRE SIMULATION GAME LOGIC
+        ---------------------------------------------------- */
+        let satireState = {
+            money: 50000, month: 1, year: 2026, cows: 12, soyFields: 4,
+            pattyStock: 500, burgerPrice: 18.99, wages: 12.00,
+            approval: 45, scandal: 20, isPaused: false, timer: null
+        };
+
+        function startSatireGameLoop() {
+            if (satireState.timer) clearInterval(satireState.timer);
+            satireState.timer = setInterval(satireTick, 2000);
+        }
+
+        function toggleSatirePause() {
+            satireState.isPaused = !satireState.isPaused;
+            document.getElementById('pause-btn').innerText = satireState.isPaused ? 'RESUME SIMULATION' : 'PAUSE SIMULATION';
+        }
+
+        function satireTick() {
+            if (satireState.isPaused) return;
+
+            satireState.month++;
+            if (satireState.month > 12) { satireState.month = 1; satireState.year++; }
+
+            // Production & Sales
+            let production = satireState.cows * 25 + satireState.soyFields * 10;
+            satireState.pattyStock += production;
+
+            let demand = Math.max(5, Math.floor((100 - satireState.burgerPrice * 2.5) + (satireState.approval / 2)));
+            let sales = Math.min(satireState.pattyStock, demand * 15);
+
+            satireState.pattyStock -= sales;
+            let revenue = sales * satireState.burgerPrice;
+            let expenses = (satireState.cows * 15) + (satireState.soyFields * 10) + (satireState.wages * 200);
+
+            satireState.money += (revenue - expenses);
+
+            if (satireState.burgerPrice > 16) satireState.approval = Math.max(0, satireState.approval - 1);
+            if (satireState.money < -10000) {
+                addLog("CRITICAL BANKRUPT: Corporate bailout failed! CEO golden parachute deployed.", "danger");
+                toggleSatirePause();
             }
 
-            let navLink = document.getElementById('nav-' + hash.replace('#', ''));
-            if (navLink) navLink.classList.add('active-link');
-
-            window.scrollTo(0, 0);
-
-            if (hash === '#cart') renderCart();
-            if (hash === '#shop') renderShop(PRODUCTS);
+            updateSatireUI();
         }
 
-        window.addEventListener('hashchange', handleRouting);
-
-        /* 3. FAST-FOOD SATIRE GAME LOGIC (MCDONALD'S STYLE) */
-        let gameState = { money: 50000, month: 1, year: 2026, cows: 12, soyFields: 4, pattyStock: 500, burgerPrice: 18.99, wages: 12.00, publicApproval: 45, scandalLevel: 20, isPaused: false, timer: null };
-
-        function initTycoonGame() {
-            updateTycoonUI();
-            if (gameState.timer) clearInterval(gameState.timer);
-            gameState.timer = setInterval(tycoonTick, 2000);
-        }
-
-        function togglePause() {
-            gameState.isPaused = !gameState.isPaused;
-            document.getElementById('pause-btn').innerText = gameState.isPaused ? 'RESUME SIMULATION' : 'PAUSE SIMULATION';
-        }
-
-        function tycoonTick() {
-            if (gameState.isPaused) return;
-            gameState.month++;
-            if (gameState.month > 12) { gameState.month = 1; gameState.year++; }
-
-            let meatProduced = gameState.cows * 25 + gameState.soyFields * 10;
-            gameState.pattyStock += meatProduced;
-
-            let demand = Math.max(5, Math.floor((100 - gameState.burgerPrice * 2.5) + (gameState.publicApproval / 2)));
-            let actualSales = Math.min(gameState.pattyStock, demand * 35);
-
-            gameState.pattyStock -= actualSales;
-            let revenue = actualSales * gameState.burgerPrice;
-            let upkeep = (gameState.cows * 15) + (gameState.soyFields * 10) + (gameState.wages * 150);
-            gameState.money += (revenue - upkeep);
-
-            if (gameState.burgerPrice > 16) gameState.publicApproval = Math.max(0, gameState.publicApproval - 1);
-
-            updateTycoonUI();
-        }
-
-        function updateTycoonUI() {
-            const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-            document.getElementById('game-date').innerText = months[gameState.month - 1] + ' ' + gameState.year;
-            document.getElementById('game-money').innerText = '$' + gameState.money.toLocaleString('en-US', {maximumFractionDigits:0});
-            document.getElementById('game-cows').innerText = gameState.cows;
-            document.getElementById('game-soy').innerText = gameState.soyFields;
-            document.getElementById('game-patties').innerText = gameState.pattyStock;
-            document.getElementById('game-price').innerText = '$' + gameState.burgerPrice.toFixed(2);
-            document.getElementById('game-approval').innerText = gameState.publicApproval + '%';
-            document.getElementById('game-scandal').innerText = gameState.scandalLevel + '%';
-            document.getElementById('game-wages').innerText = '$' + gameState.wages.toFixed(2) + '/hr';
+        function updateSatireUI() {
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            document.getElementById('game-date').innerText = months[satireState.month - 1] + ' ' + satireState.year;
+            document.getElementById('game-money').innerText = '$' + satireState.money.toLocaleString('en-US', {minimumFractionDigits: 2});
+            document.getElementById('game-cows').innerText = satireState.cows;
+            document.getElementById('game-soy').innerText = satireState.soyFields;
+            document.getElementById('game-patties').innerText = satireState.pattyStock;
+            document.getElementById('game-price').innerText = '$' + satireState.burgerPrice.toFixed(2);
+            document.getElementById('game-approval').innerText = satireState.approval + '%';
+            document.getElementById('game-scandal').innerText = satireState.scandal + '%';
+            document.getElementById('game-wages').innerText = '$' + satireState.wages.toFixed(2) + '/hr';
         }
 
         function buyCows() {
-            if (gameState.money >= 500) {
-                gameState.money -= 500; gameState.cows += 2;
-                addLog("Deforested 4 acres for cattle. Hormones injected[cite: 5].", "warning"); updateTycoonUI();
+            if (satireState.money >= 500) {
+                satireState.money -= 500; satireState.cows += 2;
+                addLog("Deforested 4 acres of rainforest for cattle expansion.", "warning");
+                updateSatireUI();
             }
         }
+
         function plantSoy() {
-            if (gameState.money >= 300) {
-                gameState.money -= 300; gameState.soyFields += 1;
-                addLog("Planted GMO soy filler to lower beef ratio[cite: 5].", "info"); updateTycoonUI();
+            if (satireState.money >= 300) {
+                satireState.money -= 300; satireState.soyFields += 1;
+                addLog("Planted GMO soy filler fields to stretch beef volume.", "info");
+                updateSatireUI();
             }
         }
-        function adjustPrice(amt) {
-            gameState.burgerPrice = Math.max(2.99, gameState.burgerPrice + amt);
-            if (amt > 0) { gameState.publicApproval = Math.max(0, gameState.publicApproval - 3); addLog(`Hiked burger price to $${gameState.burgerPrice.toFixed(2)}[cite: 5].`, "warning"); }
-            updateTycoonUI();
+
+        function adjustPrice(amount) {
+            satireState.burgerPrice = Math.max(2.99, satireState.burgerPrice + amount);
+            if (amount > 0) {
+                satireState.approval = Math.max(0, satireState.approval - 3);
+                addLog(`Hiked Value Burger price to $${satireState.burgerPrice.toFixed(2)}. Cited global supply inflation.`, "warning");
+            }
+            updateSatireUI();
         }
-        function adjustWages(amt) {
-            gameState.wages = Math.max(4.25, gameState.wages + amt);
-            if (amt < 0) addLog("Cut crew wages. Kiosks replacing workers[cite: 5].", "danger");
-            updateTycoonUI();
+
+        function adjustWages(amount) {
+            satireState.wages = Math.max(4.25, satireState.wages + amount);
+            if (amount < 0) {
+                addLog(`Cut crew wages to $${satireState.wages.toFixed(2)}/hr. Fast-tracked self-service kiosks.`, "danger");
+            } else {
+                satireState.approval = Math.min(100, satireState.approval + 3);
+                addLog(`Raised wages slightly. PR team released news bulletins on corporate generosity.`, "success");
+            }
+            updateSatireUI();
         }
+
         function lobbyPR() {
-            if (gameState.money >= 4000) {
-                gameState.money -= 4000; gameState.publicApproval = Math.min(100, gameState.publicApproval + 15);
-                addLog("Funded study claiming processed fast food lowers anxiety[cite: 5].", "success"); updateTycoonUI();
+            if (satireState.money >= 4000) {
+                satireState.money -= 4000; satireState.approval = Math.min(100, satireState.approval + 15);
+                addLog("Funded medical study claiming ultra-processed combos reduce daily stress.", "success");
+                updateSatireUI();
             }
         }
+
         function bribeInspector() {
-            if (gameState.money >= 2500) {
-                gameState.money -= 2500; gameState.scandalLevel = Math.max(0, gameState.scandalLevel - 15);
-                addLog("Bribed health inspector. E. coli report shredded[cite: 5].", "success"); updateTycoonUI();
+            if (satireState.money >= 2500) {
+                satireState.money -= 2500; satireState.scandal = Math.max(0, satireState.scandal - 15);
+                addLog("Bribed health inspector. E. coli contamination report shredded.", "success");
+                updateSatireUI();
             }
         }
+
         function addLog(msg, type) {
             const feed = document.getElementById('game-feed');
             if (!feed) return;
@@ -859,11 +831,15 @@
             feed.prepend(item);
         }
 
-        /* 4. ARCADE GAME LOGIC */
+        /* ----------------------------------------------------
+           4. ACTION ARCADE MINIGAME LOGIC
+        ---------------------------------------------------- */
         const canvas = document.getElementById('arcadeCanvas');
         const ctx = canvas.getContext('2d');
-        let arcadeScore = 0, arcadeLives = 3, arcadeActive = false, targets = [], bullets = [], playerX = 400;
-        const targetLabels = ["$25 Burger", "$14 Latte", "$9 Donut", "$35 Meal", "$18 Fries"];
+        let arcadeScore = 0, arcadeLives = 3, arcadeActive = false;
+        let targets = [], bullets = [], playerX = 400;
+
+        const targetLabels = ["$25 Burger", "$14 Latte", "$9 Donut", "$38 Combo", "+35% Surge", "$18 Fries"];
 
         canvas.addEventListener('mousemove', (e) => {
             const rect = canvas.getBoundingClientRect();
@@ -871,7 +847,8 @@
         });
 
         canvas.addEventListener('click', () => {
-            if (arcadeActive) bullets.push({ x: playerX, y: 390, radius: 4, speed: 10 });
+            if (!arcadeActive) return;
+            bullets.push({ x: playerX, y: 410, radius: 4, speed: 9 });
         });
 
         function startArcadeGame() {
@@ -884,34 +861,45 @@
 
         function updateArcade() {
             if (!arcadeActive) return;
+
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Cannon
+            // Draw Cannon
             ctx.fillStyle = '#8141ff';
-            ctx.beginPath(); ctx.arc(playerX, 400, 18, 0, Math.PI * 2); ctx.fill();
-            ctx.fillRect(playerX - 4, 375, 8, 20);
+            ctx.beginPath(); ctx.arc(playerX, 430, 18, 0, Math.PI * 2); ctx.fill();
+            ctx.fillRect(playerX - 4, 400, 8, 20);
 
             // Bullets
             for (let i = bullets.length - 1; i >= 0; i--) {
                 let b = bullets[i]; b.y -= b.speed;
-                ctx.fillStyle = '#00e676'; ctx.beginPath(); ctx.arc(b.x, b.y, b.radius, 0, Math.PI * 2); ctx.fill();
+                ctx.fillStyle = '#00e676';
+                ctx.beginPath(); ctx.arc(b.x, b.y, b.radius, 0, Math.PI * 2); ctx.fill();
                 if (b.y < 0) bullets.splice(i, 1);
             }
 
-            // Target Spawn
-            if (Math.random() < 0.035) {
-                targets.push({ x: Math.random() * (canvas.width - 80) + 40, y: -20, speed: 1.5 + Math.random() * 2, label: targetLabels[Math.floor(Math.random()*targetLabels.length)] });
+            // Spawn Targets
+            if (Math.random() < 0.03) {
+                targets.push({
+                    x: Math.random() * (canvas.width - 90) + 45, y: -30,
+                    speed: 1.5 + Math.random() * 2,
+                    label: targetLabels[Math.floor(Math.random() * targetLabels.length)],
+                    width: 80, height: 28
+                });
             }
 
-            // Targets
+            // Update Targets
             for (let i = targets.length - 1; i >= 0; i--) {
                 let t = targets[i]; t.y += t.speed;
-                ctx.fillStyle = '#ff3366'; ctx.fillRect(t.x - 35, t.y, 70, 25);
-                ctx.fillStyle = '#fff'; ctx.font = 'bold 11px sans-serif'; ctx.textAlign = 'center'; ctx.fillText(t.label, t.x, t.y + 16);
 
+                ctx.fillStyle = '#ff3366';
+                ctx.fillRect(t.x - t.width/2, t.y, t.width, t.height);
+                ctx.fillStyle = '#fff'; ctx.font = 'bold 12px sans-serif'; ctx.textAlign = 'center';
+                ctx.fillText(t.label, t.x, t.y + 18);
+
+                // Collision Detection
                 for (let j = bullets.length - 1; j >= 0; j--) {
                     let b = bullets[j];
-                    if (b.x > t.x - 35 && b.x < t.x + 35 && b.y > t.y && b.y < t.y + 25) {
+                    if (b.x > t.x - t.width/2 && b.x < t.x + t.width/2 && b.y > t.y && b.y < t.y + t.height) {
                         arcadeScore += 100;
                         document.getElementById('arcade-score').innerText = arcadeScore;
                         targets.splice(i, 1); bullets.splice(j, 1);
@@ -921,7 +909,7 @@
 
                 if (t && t.y > canvas.height) {
                     targets.splice(i, 1); arcadeLives--;
-                    document.getElementById('arcade-lives').innerText = '❤️'.repeat(Math.max(0, arcadeLives));
+                    document.getElementById('arcade-lives').innerText = '❤️'.repeat(arcadeLives);
                     if (arcadeLives <= 0) {
                         arcadeActive = false;
                         document.getElementById('arcade-overlay').style.display = 'flex';
@@ -933,49 +921,13 @@
             if (arcadeActive) requestAnimationFrame(updateArcade);
         }
 
-        function switchAuthTab(tab) {
-            if (tab === 'login') {
-                document.getElementById('form-login').style.display = 'block';
-                document.getElementById('form-signup').style.display = 'none';
-                document.getElementById('tab-login').style.color = 'var(--accent-purple-bright)';
-                document.getElementById('tab-signup').style.color = 'var(--text-muted)';
-            } else {
-                document.getElementById('form-login').style.display = 'none';
-                document.getElementById('form-signup').style.display = 'block';
-                document.getElementById('tab-login').style.color = 'var(--text-muted)';
-                document.getElementById('tab-signup').style.color = 'var(--accent-purple-bright)';
-            }
-        }
-
-        function handleAuth(e, type) {
-            e.preventDefault();
-            alert(`${type} successful! Welcome to QuestLogs.`);
-            window.location.hash = '#home';
-        }
-
-        /* INITIALIZATION */
+        /* ----------------------------------------------------
+           5. INITIALIZATION
+        ---------------------------------------------------- */
         document.addEventListener('DOMContentLoaded', () => {
             updateCartCount();
-            handleRouting();
-            initTycoonGame();
-
-            // Populate Featured Grid on Home Page
-            const homeGrid = document.getElementById('home-featured-grid');
-            if (homeGrid) {
-                PRODUCTS.slice(0, 4).forEach(p => {
-                    homeGrid.innerHTML += `
-                        <div class="card">
-                            <div class="card-img-wrap"><img src="${p.img}" alt="${p.name}"></div>
-                            <div class="card-body">
-                                <div class="rating">★★★★★ (${p.rating})</div>
-                                <h3 class="card-title">${p.name}</h3>
-                                <p class="card-desc">${p.desc.substring(0, 75)}...</p>
-                                <div class="card-price">$${p.price.toFixed(2)}</div>
-                                <button onclick="addToCart(${p.id})" class="btn-primary" style="width:100%;">Add To Cart</button>
-                            </div>
-                        </div>`;
-                });
-            }
+            renderHomeProducts();
+            startSatireGameLoop();
         });
     </script>
 </body>
