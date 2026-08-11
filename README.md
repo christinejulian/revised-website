@@ -1,2 +1,2 @@
 # revised-website
-this is for website
+I created QuestLogs as an interactive gaming website that combines gaming hardware, gaming news, web design, and playable browser games. The site explores gaming culture, technology, consumerism, and satire through interactive features like the McFast-Food Inflation Tycoon and Inflation Defender. I built the project using HTML with some elements of CSS and Javascript in the code and hosted it with GitHub Pages.
